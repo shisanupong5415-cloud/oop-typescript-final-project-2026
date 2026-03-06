@@ -1,0 +1,41 @@
+[
+  {
+    "id": 1,
+    "email": "test@example.com",
+    "subject": "Help needed",
+    "details": "Cannot login",
+    "status": "RESOLVED",
+    "priority": "MEDIUM",
+    "createdAt": "2026-03-06T11:12:49.111Z",
+    "updatedAt": "2026-03-06T12:42:51.933Z",
+    "response": "ok",
+    "staffName": "Admin",
+    "resolvedAt": "2026-03-06T12:42:51.933Z"
+  },
+  {
+    "id": 2,
+    "email": "test@example.com",
+    "subject": "ช่วยด้วย",
+    "details": "login ไม่ได้",
+    "status": "OPEN",
+    "priority": "HIGH",
+    "createdAt": "2026-03-06T12:38:16.614Z",
+    "updatedAt": "2026-03-06T12:38:16.614Z",
+    "response": null,
+    "staffName": null,
+    "resolvedAt": null
+  },
+  {
+    "id": 3,
+    "email": "test@example.com",
+    "subject": "ช่วยด้วย",
+    "details": "login ไม่ได้",
+    "status": "OPEN",
+    "priority": "HIGH",
+    "createdAt": "2026-03-06T12:59:16.957Z",
+    "updatedAt": "2026-03-06T12:59:16.957Z",
+    "response": null,
+    "staffName": null,
+    "resolvedAt": null
+  }
+]
