@@ -27,7 +27,7 @@
       "id": "8",
       "name": "Support / Ticket System"
     },
-    "sumStudentId": 0
+    "sumStudentId": 204031318
   },
   "scripts": {
     "build": "nest build",
