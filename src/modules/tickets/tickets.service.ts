@@ -107,19 +107,18 @@ export class TicketsService {
     }
 
     // ค้นหา ticket จาก id กับ email
-    track(dto: TrackTicketDto): Ticket {
-        const tickets = this.readTickets();
+    track(dto: TrackTicketDto): Ticket | null {
+    const tickets = this.readTickets();
 
-        // หา ticket ที่ id กับ email ตรงกัน
-        const found = tickets.find((t) => t.id === dto.ticketId && t.email === dto.email);
+    const found = tickets.find(
+        (t) => t.id === dto.ticketId && t.email === dto.email,
+    );
 
-        if (!found) {
-            throw new NotFoundException(
-                `No matching records found for Ticket ID ${dto.ticketId}`,
-            );
-        }
+    if (!found) {
+        return null;
+    }
 
-        return found;
+    return found;
     }
 
     // ดึง ticket ทั้งหมด เรียงตาม id

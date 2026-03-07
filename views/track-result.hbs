@@ -1,0 +1,46 @@
+{{#if notFound}}
+
+<h1>Ticket Not Found</h1>
+<p>No matching records found.</p>
+
+<a href="/track-ticket">Try Again</a>
+
+{{else}}
+
+<h1>Ticket Found</h1>
+
+<p><b>ID:</b> {{ticket.id}}</p>
+<p><b>Email:</b> {{ticket.email}}</p>
+
+<hr>
+
+<p><b>Subject:</b> {{ticket.subject}}</p>
+<p><b>Details:</b> {{ticket.details}}</p>
+
+<hr>
+
+<p><b>Status:</b> {{ticket.status}}</p>
+<p><b>Priority:</b> {{ticket.priority}}</p>
+
+<hr>
+
+<p><b>Created At:</b> {{ticket.createdAt}}</p>
+<p><b>Updated At:</b> {{ticket.updatedAt}}</p>
+
+{{#if ticket.resolvedAt}}
+
+<p><b>Resolved At:</b> {{ticket.resolvedAt}}</p>
+{{/if}}
+
+<hr>
+
+{{#if ticket.response}}
+
+<h3>Staff Response</h3>
+<p><b>Staff:</b> {{ticket.staffName}}</p>
+<p>{{ticket.response}}</p>
+{{else}}
+<p><i>No response from staff yet</i></p>
+{{/if}}
+
+{{/if}}

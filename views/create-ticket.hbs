@@ -1,0 +1,25 @@
+<h1>Create Ticket</h1>
+
+<form action="/tickets" method="POST">
+
+<label>Email</label><br>
+<input type="email" name="email" required><br><br>
+
+<label>Subject</label><br>
+<input type="text" name="subject" required><br><br>
+
+<label>Details</label><br>
+<textarea name="details"></textarea><br><br>
+
+<label>Priority</label><br>
+<select name="priority">
+<option value="LOW">LOW</option>
+<option value="MEDIUM">MEDIUM</option>
+<option value="HIGH">HIGH</option>
+</select>
+
+<br><br>
+
+<button type="submit">Create Ticket</button>
+
+</form>

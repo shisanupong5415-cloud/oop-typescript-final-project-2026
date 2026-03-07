@@ -1,6 +1,7 @@
 import {
     Controller, Get, Post, Put, Patch, Delete,
     Body, Param, ParseIntPipe, HttpCode, HttpStatus,
+    Render,
 } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse as SwaggerResponse } from '@nestjs/swagger';
 import { TicketsService } from './tickets.service';
@@ -83,5 +84,18 @@ export class TicketsController {
     remove(@Param('id', ParseIntPipe) id: number): ApiResponse<Ticket> {
         const ticket = this.ticketsService.remove(id);
         return { success: true, message: 'Ticket deleted successfully', data: ticket };
+    }
+
+    @Post('track-web')
+    @Render('track-result')
+    trackTicket(@Body() dto: TrackTicketDto) {
+
+        const ticket = this.ticketsService.track(dto);
+
+        if (!ticket) {
+            return { notFound: true };
+        }
+
+        return { ticket };
     }
 }
