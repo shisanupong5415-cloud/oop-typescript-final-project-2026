@@ -1,13 +1,3 @@
-ผมจะทำ **API Specification สำหรับระบบของคุณ (Support / Ticket System – Model Set 8)** ให้ในรูปแบบเดียวกับตัวอย่างที่อาจารย์ให้ เพื่อให้คุณเอาไปใส่ไฟล์
-
-```
-docs/api-specification.md
-```
-
-ได้เลย ✅
-
----
-
 # API Specification
 
 **Project:** Support / Ticket System (Model Set 8)
