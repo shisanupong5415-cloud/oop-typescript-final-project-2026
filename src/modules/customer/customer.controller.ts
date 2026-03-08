@@ -1,11 +1,12 @@
-import { Controller, Post, Body, HttpCode, HttpStatus } from '@nestjs/common';
-import { ApiOperation, ApiResponse as SwaggerResponse } from '@nestjs/swagger';
+import { Controller, Post, Get, Body, Query, HttpCode, HttpStatus } from '@nestjs/common';
+import { ApiTags, ApiOperation, ApiResponse as SwaggerResponse } from '@nestjs/swagger';
 import { CustomerService } from './customer.service';
 import { CreateTicketDto } from './dto/create-ticket.dto';
 import { TrackTicketDto } from './dto/track-ticket.dto';
 import { Ticket } from '../tickets/entities/ticket.entity';
 import { ApiResponse } from '../../common/interfaces/api-response.interface';
 
+@ApiTags('customer')
 @Controller('customer')
 export class CustomerController {
 
@@ -27,14 +28,18 @@ export class CustomerController {
         };
     }
 
-    @Post('track')
+    @Get('track')
     @HttpCode(HttpStatus.OK)
     @ApiOperation({ summary: 'ค้นหา ticket' })
     @SwaggerResponse({ status: 200, description: 'เจอแล้ว' })
     @SwaggerResponse({ status: 404, description: 'ไม่เจอ' })
-    track(@Body() dto: TrackTicketDto): ApiResponse<Ticket> {
+    
+    track(
+    @Query('ticketId') ticketId: number,
+    @Query('email') email: string,
+    ): ApiResponse<Ticket> {
 
-        const ticket = this.customerService.trackTicket(dto);
+        const ticket = this.customerService.trackTicket({ ticketId, email });
 
         return {
             success: true,
