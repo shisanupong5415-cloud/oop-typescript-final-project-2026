@@ -163,6 +163,11 @@ export class TicketsService {
             if (dto.status === TicketStatus.RESOLVED || dto.status === TicketStatus.REJECTED) {
                 tickets[index].resolvedAt = new Date().toISOString();
             }
+
+            // ถ้าเปิด ticket กลับมาใหม่ ให้เคลียร์ resolvedAt
+            if (dto.status === TicketStatus.OPEN) {
+                tickets[index].resolvedAt = null;
+            }
         }
 
         tickets[index].updatedAt = new Date().toISOString();
@@ -172,7 +177,7 @@ export class TicketsService {
         return tickets[index];
     }
 
-    // แทนที่ ticket ทั้งหมด (PUT)
+    // แทนที่ ticket ทั้งหมด
     replace(id: number, dto: CreateTicketDto): Ticket {
         const tickets = this.readTickets();
         const index = tickets.findIndex((t) => t.id === id);
