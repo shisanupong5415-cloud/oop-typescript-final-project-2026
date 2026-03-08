@@ -1,6 +1,6 @@
-import { Controller, Post, Body, HttpCode, HttpStatus, NotFoundException } from '@nestjs/common';
+import { Controller, Post, Body, HttpCode, HttpStatus } from '@nestjs/common';
 import { ApiOperation, ApiResponse as SwaggerResponse } from '@nestjs/swagger';
-import { TicketsService } from '../tickets/tickets.service';
+import { CustomerService } from './customer.service';
 import { CreateTicketDto } from './dto/create-ticket.dto';
 import { TrackTicketDto } from './dto/track-ticket.dto';
 import { Ticket } from '../tickets/entities/ticket.entity';
@@ -9,7 +9,7 @@ import { ApiResponse } from '../../common/interfaces/api-response.interface';
 @Controller('customer')
 export class CustomerController {
 
-    constructor(private readonly ticketsService: TicketsService) {}
+    constructor(private readonly customerService: CustomerService) {}
 
     @Post()
     @HttpCode(HttpStatus.CREATED)
@@ -18,7 +18,7 @@ export class CustomerController {
     @SwaggerResponse({ status: 400, description: 'ข้อมูลไม่ถูกต้อง' })
     create(@Body() dto: CreateTicketDto): ApiResponse<{ ticketId: number; message: string }> {
 
-        const ticket = this.ticketsService.create(dto);
+        const ticket = this.customerService.createTicket(dto);
 
         return {
             success: true,
@@ -34,12 +34,7 @@ export class CustomerController {
     @SwaggerResponse({ status: 404, description: 'ไม่เจอ' })
     track(@Body() dto: TrackTicketDto): ApiResponse<Ticket> {
 
-        const ticket = this.ticketsService.track(dto);
-
-        // ถ้าไม่เจอ ticket ให้โยน 404
-        if (!ticket) {
-            throw new NotFoundException('Ticket not found');
-        }
+        const ticket = this.customerService.trackTicket(dto);
 
         return {
             success: true,
