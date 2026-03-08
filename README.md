@@ -88,9 +88,9 @@ http://localhost:3000/api
 │   │       └── customer.service.ts
 │   │
 │   └── common/
-│       ├── enums/
-│       ├── interfaces/
-│       └── utils/
+│       └── interfaces/
+│           └── api-response.interface.ts
+│ 
 │
 ├── data/
 │   └── tickets.json
