@@ -2,7 +2,9 @@ import { Controller, Get, Post, Body, Render } from '@nestjs/common';
 import { TicketsService } from '../tickets/tickets.service';
 import { CreateTicketDto } from '../customer/dto/create-ticket.dto';
 import { TrackTicketDto } from '../customer/dto/track-ticket.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('web')
 @Controller()
 export class WebController {
 
