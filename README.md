@@ -1,26 +1,25 @@
-# NestJS Backend API — Project Template
+# OOP Final Project - Support / Ticket System
 
 ## 📌 Project Overview
 
-โปรเจคนี้เป็น **Template สำหรับ Class Project** ในรายวิชาการพัฒนา Backend ด้วย NestJS Framework
+โปรเจคนี้เป็นระบบ Backend REST API สำหรับ **ระบบรับแจ้งปัญหาและติดตาม Ticket (Support / Ticket System)** พัฒนาด้วย **NestJS Framework** และ **TypeScript** โดยเป็นส่วนหนึ่งของ Final Project รายวิชา **Object-Oriented Programming**
 
-**Repository:** [https://github.com/42bangkok-classroom/oop-typescript-final-project-2026](https://github.com/42bangkok-classroom/oop-typescript-final-project-2026)
+ระบบถูกออกแบบเพื่อให้ผู้ใช้งานสามารถ **แจ้งปัญหา (Create Ticket)** และ **ติดตามสถานะ Ticket** ได้ ในขณะที่เจ้าหน้าที่สามารถ **ดูและจัดการ Ticket ทั้งหมดในระบบ**
 
-วัตถุประสงค์ของโปรเจคนี้คือให้นักศึกษาฝึก:
+ระบบประกอบด้วย 2 ส่วนหลัก ได้แก่:
 
-* การออกแบบและพัฒนา REST API ตามมาตรฐาน
-* การใช้ TypeScript อย่างปลอดภัย (Type-safe)
-* การจัดการ Validation และ Error Handling
-* การจัดทำเอกสารระบบ (Documentation)
+1. **Customer Module:** สำหรับลูกค้าใช้สร้าง Ticket และติดตามสถานะ Ticket
+2. **Ticket Management Module:** สำหรับเจ้าหน้าที่ใช้จัดการ Ticket (ดู, แก้ไข, อัปเดตสถานะ และลบ Ticket)
+
+ระบบใช้การจำลองฐานข้อมูลด้วยไฟล์ **JSON-based Database** และมีการเขียนเอกสาร API ด้วย **Swagger (OpenAPI)**
 
 ---
 
-## 👥 Team Structure
+## 👥 Team & Contributors
 
-* ทำงานเป็นกลุ่ม กลุ่มละ **3–4 คน**
-* ระยะเวลาการพัฒนา **ประมาณ 2 สัปดาห์**
-* สมาชิกทุกคนต้องมี commit ใน repository
-* รายชื่อสมาชิกต้องถูกระบุไว้ใน `package.json` (key `contributors`)
+* ธีรภัทร์ ถิระอัมพรพิชญ์ 68010547
+* ธันยธร ศรีพงษ์เพลิด 68010520
+* ชิษณุพงศ์ แจ่มใส 68010251
 
 ---
 
@@ -29,9 +28,37 @@
 * **Framework:** NestJS
 * **Language:** TypeScript
 * **API Style:** REST API
-* **Database:** JSON-based (file-based หรือ in-memory)
+* **Database:** JSON-based (file-based storage)
 * **API Documentation:** Swagger (OpenAPI)
-* **Linting:** ESLint (TypeScript ESLint)
+* **Validation:** `class-validator` และ `class-transformer`
+* **Email Service:** Nodemailer
+* **Template Engine:** Handlebars (HBS)
+
+---
+
+## 🚀 การติดตั้งและรันโปรเจค
+
+### 1. ติดตั้ง Dependencies
+
+เปิด Terminal แล้วรันคำสั่ง:
+
+```bash
+npm install
+````
+
+### 2. รัน Development Server
+
+```bash
+npm run start:dev
+```
+
+### 3. ดู API Documentation (Swagger)
+
+เมื่อ Server ทำงานแล้ว สามารถเข้าไปทดสอบ API ทั้งหมดได้ที่
+
+```
+http://localhost:3000/api
+```
 
 ---
 
@@ -39,205 +66,113 @@
 
 ```text
 .
+├── docs/
+│   ├── api-specification.md
+│   ├── data-model.md
+│   └── uml-diagram.png
+│
 ├── src/
 │   ├── main.ts
 │   ├── app.module.ts
 │   │
 │   ├── modules/
-│   │   └── example/
-│   │       └── dto/
+│   │   ├── tickets/
+│   │   │   ├── dto/
+│   │   │   ├── entities/
+│   │   │   ├── tickets.controller.ts
+│   │   │   └── tickets.service.ts
+│   │   │
+│   │   └── customer/
+│   │       ├── dto/
+│   │       ├── customer.controller.ts
+│   │       └── customer.service.ts
 │   │
 │   └── common/
+│       ├── enums/
 │       ├── interfaces/
 │       └── utils/
 │
-├── docs/
-│   ├── api-specification.md
-│   ├── data-model.md
-│   └── uml-diagram.png
-├── subjects/
-│   ├── requirement.md
-│   ├── submission.md
-│   ├── evaluation.md
-│   └── models.md
+├── data/
+│   └── tickets.json
 │
 ├── package.json
 ├── tsconfig.json
 └── README.md
 ```
 
-> 📌 หมายเหตุ: 
-> * โครงสร้างอาจมีการปรับเพิ่มเติมได้ตามความเหมาะสม แต่ต้องยังคงความเป็นระเบียบและอ่านง่าย
-> * **แนะนำให้แยก module ตาม models** (เช่น `modules/users/`, `modules/products/`) เพื่อให้โค้ดเป็นระบบและดูแลรักษาง่าย
-> * แต่ละ module ควรมี controller, service, และ dto ของตัวเอง
+---
+
+## 🎫 System Features
+
+### 1. Customer Features
+
+ลูกค้าสามารถใช้งานระบบเพื่อแจ้งปัญหาและติดตาม Ticket
+
+* สร้าง Ticket ใหม่
+* ติดตามสถานะ Ticket
+* รับอีเมลแจ้งเตือนเมื่อสร้าง Ticket สำเร็จ
+
+### 2. Ticket Management (Staff)
+
+เจ้าหน้าที่สามารถจัดการ Ticket ภายในระบบ
+
+* ดู Ticket ทั้งหมด
+* ดู Ticket ตาม ID
+* อัปเดตสถานะ Ticket
+* เพิ่มการตอบกลับ (Response)
+* ลบ Ticket
 
 ---
 
-## 🚀 Getting Started
+## 🖥️ User Interface (UI) – *Beta*
 
-### 1. Install Dependencies
+นอกจาก REST API แล้ว โปรเจคนี้ยังมีการพัฒนา **User Interface (UI)** เพื่อให้ผู้ใช้งานสามารถโต้ตอบกับระบบผ่านเว็บเบราว์เซอร์ อย่างไรก็ตาม UI ในปัจจุบันยังอยู่ในสถานะ **Beta (อยู่ระหว่างการพัฒนา)** และยังไม่ครบทุกฟีเจอร์
 
-```bash
-npm install
+UI นี้ถูกสร้างขึ้นเพื่อช่วยในการทดสอบระบบ API และจำลองการใช้งานจริงของผู้ใช้
+
+### วิธีเปิดใช้งาน Web UI
+
+เมื่อรัน Server แล้ว สามารถเข้าใช้งาน Web Interface ได้ผ่าน Browser ที่
+
+```
+http://localhost:3000
 ```
 
-### 2. Run Development Server
+### Current UI Features (Beta)
 
-```bash
-npm run start:dev
+* หน้า **Create Ticket** สำหรับลูกค้าใช้สร้าง Ticket ใหม่
+* หน้า **Track Ticket** สำหรับตรวจสอบสถานะ Ticket
+* หน้า **Manage Tickets** สำหรับเจ้าหน้าที่ดูรายการ Ticket ทั้งหมด
+
+### Example UI Routes
+
+```
+/create-ticket
+/track-ticket
+/manage-ticket
 ```
 
-### 3. API Documentation (Swagger)
+### หมายเหตุ
 
-เมื่อรันโปรเจคแล้ว สามารถเข้าดู Swagger ได้ที่:
+UI นี้ถูกพัฒนาขึ้นเพื่อใช้เป็น **Demo Interface สำหรับทดสอบ API** เท่านั้น โดยระบบหลักของโปรเจคยังคงเป็น **Backend REST API**
 
-```text
-http://localhost:3000/api
-```
+ในอนาคตอาจมีการพัฒนาเพิ่มเติม เช่น
 
----
-
-## 🧩 Model Sets
-
-แต่ละกลุ่มต้องเลือก **Model Set 1 ชุด** จาก 10 ชุดที่มีให้
-
-**วิธีการเลือก Model Set:**
-1. นำ Student ID ของสมาชิกทุกคนในกลุ่มมารวมกัน (`sumStudentId`)
-2. นำผลรวม mod 10
-3. ค่าที่ได้ (0-9) จะเป็น Model Set ID ที่กลุ่มได้รับ
-
-**ตัวอย่าง:** 
-- สมาชิก 3 คน มี Student ID: 64123456, 64123457, 64123458
-- `sumStudentId` = 64123456 + 64123457 + 64123458 = 192370371
-- 192370371 mod 10 = 1 → **Model Set ID: "1"** (Blog / Content Platform)
-
-> 📌 **เมื่อได้ Model Set แล้ว ห้ามเปลี่ยน** เว้นแต่ได้รับอนุญาตจากอาจารย์
-
-**หลังจากเลือก Model Set แล้ว ให้บันทึกใน `package.json`:**
-```json
-{
-  "project": {
-    "model": {
-      "id": "1",
-      "name": "Blog / Content Platform"
-    },
-    "sumStudentId": 192370371
-  }
-}
-```
-
-**รายละเอียด Model Sets ทั้งหมด:** → [`subjects/models.md`](subjects/models.md)
+* Dashboard สำหรับเจ้าหน้าที่
+* ระบบ Login สำหรับ Staff
+* การแสดงสถานะ Ticket แบบ Real-time
+* การออกแบบ UI/UX ให้สมบูรณ์มากขึ้น
 
 ---
 
-## 📐 Project Requirements (Summary)
-
-### Data Model
-* ต้องเลือกใช้ **Model Set 1 ชุด** จาก 10 ชุดที่มีให้ (ดูรายละเอียดใน [`subjects/models.md`](subjects/models.md))
-* แต่ละ Model Set มี **Core Data Model 2 Models**
-* ต้องบันทึก Model Set ที่เลือกไว้ใน `package.json` (key `project`)
-* ใช้ TypeScript data type ให้ครบถ้วน
-* ต้องมีการใช้งาน **Enum อย่างน้อย 1 จุด**
-* ❌ **ห้ามใช้ `any` type ในทุกกรณี**
-
-### API Design
-* ทุก Model ต้องรองรับ **CRUD Operation ครบถ้วน**
-* ใช้ HTTP Method ให้ถูกต้องตามหลัก REST API:
-  * `GET /resources` - ดึงข้อมูลทั้งหมด
-  * `GET /resources/{id}` - ดึงข้อมูลตาม ID
-  * `POST /resources` - สร้างข้อมูลใหม่
-  * `PUT /resources/{id}` - อัปเดตข้อมูลทั้งหมด
-  * `PATCH /resources/{id}` - อัปเดตข้อมูลบางส่วน
-  * `DELETE /resources/{id}` - ลบข้อมูล
-* URL path ต้องตั้งชื่อให้สื่อความหมาย
-
-### Standard Response Format
-
-ทุก API ต้องใช้ Response Format แบบเดียวกัน:
-
-```typescript
-interface ApiResponse<T> {
-  success: boolean;
-  message: string;
-  data: T | null;
-}
-```
-
-### Validation & Error Handling
-* ทุก API ต้องมีการ **validate ข้อมูล**
-* ใช้ **HTTP Status Code** ที่เหมาะสม:
-  * `200` - OK (GET, PUT, PATCH สำเร็จ)
-  * `201` - Created (POST สำเร็จ)
-  * `400` - Bad Request (Validation error)
-  * `403` - Forbidden (ไม่มีสิทธิ์)
-  * `404` - Not Found (ไม่พบข้อมูล)
-  * `500` - Internal Server Error (Server error)
-* ⚠️ **ไม่ควรเกิด Error 500 จาก logic ที่สามารถป้องกันได้**
-* หากพบ Error 500 มากกว่า 5 จุด อาจมีผลต่อการให้คะแนน
-
 ---
 
-## 📄 Documentation
+## 📄 ลิงก์ไปยังเอกสารทางเทคนิค (Documentation)
 
-เอกสารรายละเอียดของโจทย์และข้อกำหนดทั้งหมดถูกจัดเก็บไว้ในโฟลเดอร์ `subjects/`
+สามารถดูเอกสารรายละเอียดของระบบได้ที่โฟลเดอร์ `docs/`
 
-### เอกสารโจทย์ (Project Specification)
-
-* 📘 **Project Requirement** — ขอบเขตและข้อกำหนดของโปรเจค
-  → [`subjects/requirement.md`](subjects/requirement.md)
-* 🧩 **Model Sets** — รายละเอียด Model Sets ทั้ง 10 ชุด
-  → [`subjects/models.md`](subjects/models.md)
-* 📦 **Submission Guideline** — รูปแบบและขั้นตอนการส่งงาน
-  → [`subjects/submission.md`](subjects/submission.md)
-* 🧮 **Evaluation Criteria** — เกณฑ์การให้คะแนนและการประเมินผล
-  → [`subjects/evaluation.md`](subjects/evaluation.md)
-
-### เอกสารทางเทคนิค (ต้องจัดทำ)
-
-* 🔌 **API Specification (Swagger)** — เอกสาร API ทุก Endpoint
-* 🧱 **Data Model Documentation** — เอกสารอธิบาย Data Model
-* 📊 **UML Diagram** — แผนภาพ UML ของ Data Model
+* 🔌 **API Specification** – รายละเอียด Endpoint ทั้งหมด
+* 🧱 **Data Model Documentation** – โครงสร้างข้อมูลของระบบ
+* 📊 **UML Diagram** – แผนภาพความสัมพันธ์ของโมเดลในระบบ
 
 ---
-
-## 👥 Team & Contributors
-
-รายชื่อสมาชิกในกลุ่มต้องถูกระบุไว้ใน key `contributors` ภายในไฟล์ `package.json` โดยมีรูปแบบดังนี้:
-
-```json
-"contributors": [
-  {
-    "fullname": "ชื่อ-นามสกุล",
-    "username": "github-username",
-    "studentId": "รหัสนักศึกษา"
-  }
-]
-```
-
----
-
-## 🤖 AI Usage Policy
-
-* อนุญาตให้ใช้ AI (เช่น ChatGPT) ช่วยในการพัฒนาโปรเจค
-* นักศึกษาต้องสามารถอธิบายโค้ดและแนวคิดของระบบได้ด้วยตนเอง
-* หากไม่สามารถอธิบายได้ อาจมีผลต่อการประเมินคะแนน
-
----
-
-## ✅ Submission
-
-* ส่งงานเป็น **GitHub Repository URL** ในนามของ **Team Lead**
-* Repository ต้องสามารถเข้าถึงได้
-
----
-
-## 📝 Important Notes
-
-* โค้ดต้องอ่านง่าย เป็นระบบ และดูแลรักษาได้
-* ทุก request และ response ต้องกำหนด interface แบบ narrow type
-* ใช้ TypeScript strict mode (`strict: true` ใน tsconfig.json)
-* ESLint จะตรวจสอบและป้องกันการใช้ `any` type อัตโนมัติ
-
----
-
-📌 *This repository is intended for educational purposes only.*
