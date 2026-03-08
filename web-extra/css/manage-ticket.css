@@ -1,0 +1,58 @@
+.ticket-container{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:20px;
+}
+
+.ticket-card{
+border-radius:10px;
+padding:15px;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+background:white;
+}
+
+.ticket-summary{
+cursor:pointer;
+font-size:16px;
+}
+
+.ticket-details{
+display:none;
+margin-top:10px;
+}
+
+textarea{
+width:100%;
+height:80px;
+margin-top:5px;
+}
+
+input{
+width:100%;
+margin-top:5px;
+}
+
+.staff-buttons{
+margin-top:10px;
+display:flex;
+gap:10px;
+}
+
+button{
+padding:8px 12px;
+border:none;
+border-radius:6px;
+cursor:pointer;
+}
+
+.priority-HIGH{
+border-left:6px solid red;
+}
+
+.priority-MEDIUM{
+border-left:6px solid orange;
+}
+
+.priority-LOW{
+border-left:6px solid green;
+}

@@ -1,5 +1,5 @@
 import { IsEmail, IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator';
-import { TicketPriority } from '../entities/ticket.entity';
+import { TicketPriority } from '../../tickets/entities/ticket.entity';
 
 export class CreateTicketDto {
     @IsEmail()

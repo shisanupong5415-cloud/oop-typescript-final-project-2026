@@ -3,8 +3,8 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as nodemailer from 'nodemailer';
 import { Ticket, TicketPriority, TicketStatus } from './entities/ticket.entity';
-import { CreateTicketDto } from './dto/create-ticket.dto';
-import { TrackTicketDto } from './dto/track-ticket.dto';
+import { CreateTicketDto } from '../customer/dto/create-ticket.dto';
+import { TrackTicketDto } from '../customer/dto/track-ticket.dto';
 import { UpdateTicketDto } from './dto/update-ticket.dto';
 
 @Injectable()
@@ -217,4 +217,8 @@ export class TicketsService {
         console.log('ลบ ticket id:', id);
         return deleted;
     }
+
+    getAllTickets(): Ticket[] {
+        return this.readTickets();
+}
 }

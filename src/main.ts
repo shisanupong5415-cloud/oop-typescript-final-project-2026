@@ -10,9 +10,10 @@ async function bootstrap(): Promise<void> {
 
   // Enable CORS
   app.enableCors();
-
   app.setBaseViewsDir(join(__dirname, '..', 'views'));
-  app.setViewEngine('hbs');
+  app.setViewEngine('hbs'); 
+
+  app.useStaticAssets(join(__dirname, '..', 'web-extra'));
 
   // Global validation pipe
   app.useGlobalPipes(

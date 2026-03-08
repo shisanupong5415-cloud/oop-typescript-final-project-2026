@@ -3,22 +3,16 @@ import { Controller, Get, Render } from '@nestjs/common';
 @Controller()
 export class AppController {
 
-  @Get()
-  @Render('index')
-  home() {
-    return {};
-  }
+    @Get()
+    @Render('role-select')
+    selectRole() {
+        return {};
+    }
 
-  @Get('create-ticket')
-  @Render('create-ticket')
-  createTicketPage() {
-    return {};
-  }
-
-  @Get('track-ticket')
-  @Render('track-ticket')
-  trackTicketPage() {
-    return {};
-  }
+    @Get('index')
+    @Render('index')
+    home() {
+        return {};
+    }
 
 }

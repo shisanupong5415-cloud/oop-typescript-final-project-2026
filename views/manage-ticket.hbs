@@ -1,0 +1,120 @@
+<link rel="stylesheet" href="/css/manage-ticket.css">
+
+<h1>Ticket Management</h1>
+<p>Total tickets: {{tickets.length}}</p>
+
+<div class="ticket-container">
+
+{{#each tickets}}
+
+<div class="ticket-card priority-{{priority}}">
+
+<div class="ticket-summary" onclick="toggleTicket(this)">
+
+<b>ID:</b> {{id}} <br>
+<b>Subject:</b> {{subject}} <br>
+<b>Priority:</b> {{priority}} <br>
+<b>Status:</b> {{status}}
+
+</div>
+
+<div class="ticket-details">
+
+<p><b>Email:</b> {{email}}</p>
+<p><b>Details:</b> {{details}}</p>
+
+<p><b>Created:</b> {{createdAt}}</p>
+<p><b>Updated:</b> {{updatedAt}}</p>
+
+{{#if resolvedAt}}
+<p><b>Resolved:</b> {{resolvedAt}}</p>
+{{/if}}
+
+{{#if response}}
+<p><b>Response:</b> {{response}}</p>
+<p><b>Staff:</b> {{staffName}}</p>
+{{/if}}
+
+<hr>
+
+<h3>Staff Response</h3>
+
+<input placeholder="Staff Name" id="staff-{{id}}">
+
+<textarea placeholder="Write response..." id="response-{{id}}"></textarea>
+
+<div class="staff-buttons">
+
+<button onclick="resolveTicket({{id}})">
+Resolve
+</button>
+
+<button onclick="rejectTicket({{id}})">
+Reject
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+{{/each}}
+
+</div>
+
+<script>
+
+function toggleTicket(element){
+  const details = element.nextElementSibling;
+
+  if(details.style.display === "block"){
+    details.style.display = "none";
+  }else{
+    details.style.display = "block";
+  }
+}
+
+async function resolveTicket(id){
+
+const staffName = document.getElementById(`staff-${id}`).value;
+const response = document.getElementById(`response-${id}`).value;
+
+await fetch(`/tickets/${id}`,{
+method:"PATCH",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+staffName:staffName,
+response:response,
+status:"RESOLVED"
+})
+});
+
+location.reload();
+
+}
+
+async function rejectTicket(id){
+
+const staffName = document.getElementById(`staff-${id}`).value;
+const response = document.getElementById(`response-${id}`).value;
+
+await fetch(`/tickets/${id}`,{
+method:"PATCH",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+staffName:staffName,
+response:response,
+status:"REJECTED"
+})
+});
+
+location.reload();
+
+}
+
+</script> 
